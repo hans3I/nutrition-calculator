@@ -12,3 +12,12 @@
 .micro-row b{font-size:11px;color:#31513e;font-variant-numeric:tabular-nums;white-space:nowrap}
 .micro-row b small{font-size:9px;font-weight:500;color:#98a59b}
 @media(max-width:760px){.micro-row{flex-direction:column;gap:2px}}
+.warning-notice{display:flex;gap:13px;background:#fff8ec;border:1px solid #fedfa7;border-radius:15px;padding:14px 16px;margin:0 0 16px;align-items:flex-start}
+.warning-notice.danger{background:#fdf2f2;border-color:#f8c8cb}
+.warning-notice .notice-icon{height:34px;width:34px;border-radius:10px;background:#fee8c6;color:#b45309;display:grid;place-items:center;font-size:16px;flex-shrink:0}
+.warning-notice.danger .notice-icon{background:#fdd5d5;color:#b91c1c}
+.warning-notice .warning-content{flex:1}
+.warning-notice b{display:block;font:800 12px Manrope,sans-serif;color:#92400e;margin-bottom:3px}
+.warning-notice.danger b{color:#991b1b}
+.warning-notice p{margin:0;font-size:11px;line-height:1.55;color:#78350f}
+.warning-notice.danger p{color:#7f1d1d}

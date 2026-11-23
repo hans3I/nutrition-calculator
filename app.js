@@ -64,6 +64,22 @@ function recommendations(category,goal) {
   return items;
 }
 function showError(message) { $('profileError').textContent = message; $('profileError').hidden = false; }
+function renderBmiWarning(category, bmi) {
+  const el = $('bmiWarning');
+  if (!el) return;
+  if (category === 'Obesitas') {
+    el.className = 'warning-notice danger';
+    el.innerHTML = `<div class="notice-icon">⚠️</div><div class="warning-content"><b>Peringatan: Kategori Obesitas (BMI ${fmt(bmi,1)} kg/m²)</b><p>Indeks Massa Tubuh Anda tergolong obesitas. Penurunan berat badan disarankan dilakukan secara bertahap dan terencana. Konsultasikan dengan dokter atau ahli gizi untuk program penurunan berat badan dan evaluasi kesehatan yang aman.</p></div>`;
+    el.hidden = false;
+  } else if (category === 'Berat badan kurang') {
+    el.className = 'warning-notice';
+    el.innerHTML = `<div class="notice-icon">⚠️</div><div class="warning-content"><b>Perhatian: Kategori Berat Badan Kurang (BMI ${fmt(bmi,1)} kg/m²)</b><p>Indeks Massa Tubuh Anda berada di bawah rentang normal. Kondisi berat badan kurang berisiko terhadap penurunan imunitas dan defisiensi zat gizi. Prioritaskan asupan makanan padat gizi secara bertahap dan konsultasikan dengan tenaga kesehatan jika diperlukan.</p></div>`;
+    el.hidden = false;
+  } else {
+    el.hidden = true;
+    el.innerHTML = '';
+  }
+}
 function setMetric(id,value,unit) { $(id).innerHTML = `${value} <small>${unit}</small>`; }
 $('profileForm').addEventListener('submit',event=>{
   event.preventDefault(); $('profileError').hidden = true;
@@ -73,6 +89,7 @@ $('profileForm').addEventListener('submit',event=>{
   if (!Number.isFinite(p.weight)||p.weight<25||p.weight>300) return showError('Masukkan berat badan antara 25–300 kg.');
   const r = calculateProfile(p);
   renderMicros(p);
+  renderBmiWarning(r.category, r.bmi);
   setMetric('bmiValue',fmt(r.bmi,1),'kg/m²'); $('bmiCategory').textContent=r.category;
   setMetric('idealValue',`${fmt(r.idealMin,1)}–${fmt(r.idealMax,1)}`,'kg');
   setMetric('bmrValue',fmt(r.bmr),'kkal/hari'); setMetric('tdeeValue',fmt(r.tdee),'kkal/hari');
